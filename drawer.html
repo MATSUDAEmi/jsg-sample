@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>sample code for drawer menu | JS Girls Osaka</title>
+	<link rel="stylesheet" href="reset.css">
+	<style>
+/* 暫定リセット */
+* {
+	margin: 0;
+	padding: 0;
+	text-indent: 0;
+}
+	body {
+		overflow: hidden;
+	}
+	header {
+		width: 100%;
+		padding: 15px 0;
+		background-color: gold;
+		transrate: right 350ms linear 0s;
+	}
+	h1 {
+		font-size: 2rem;
+		text-align: center;
+	}
+	a.showNav {
+		display: inline-block;
+		padding: 5px 10px;
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		background-color: silver;
+		box-shadow: 3px 2px 1px rgba(0,0,0,0.32);
+		border-radius: 5px;
+	}
+	a.showNav:hover {
+		box-shadow: 3px 2px 1px rgba(0,0,0,0.2) inset;
+	}
+	nav ul {
+		position: fixed;
+		left: 100%;
+		top: 0;
+		z-index: -1;
+		width: 70%;
+		display: table;
+		transrate: left 350ms linear 0s;
+	}
+	nav li {
+		display: table-row;
+	}
+	nav li a {
+		display: block;
+		padding: 10px 0;
+		color: rgba(0,0,0,1);
+		text-decoration: none;
+	}
+	nav li a:hover {
+		color: rgba(60,60,0,1);;
+		transrate: color 350ms ease 0;
+	}
+
+	main {
+		width: 100%;
+		text-align: center;
+		transrate: right 350ms linear 0s;
+	}
+	main img {
+		max-width: 100%;
+	}
+	footer {
+		width: 100%;
+		background-color: black;
+		color: white;
+		text-align: center;
+		transrate: right 350ms linear 0s;
+	}
+
+	.showDrawer header, 
+	.showDrawer main, 
+	.showDrawer footer {
+		position: absolute;
+		right: 30%;
+		z-index: 0;
+	}
+	.hideLayer {
+		z-index: 1;
+		background: rgba(0,0,0,0.5);
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: 30%;
+	}
+	.showDrawer nav ul {
+		z-index: 2;
+		left: 30%;
+	}
+	@media screen and ( min-width : 420px){
+
+		nav {
+			background-color: gold;
+			border-bottom: 5px sold green;
+			width: 100%;
+		}
+		a.showNav {
+			display: none;
+		}
+		nav ul {
+			position: static;
+			width: 100%;
+			max-width: 60rem;
+			margin: 0 auto;
+			table-layout: fixed;
+		}
+		nav li {
+			display: table-cell;
+			text-align: center;
+			padding: 0 5px;
+		}
+	}
+	</style>
+</head>
+<body>
+
+	<header>
+		<h1>JS Girls</h1>
+	</header>
+	<nav>
+		<a href="" class="showNav">menu</a>
+		<ul>
+			<li><a href="">something</a></li>
+			<li><a href="">something</a></li>
+			<li><a href="">something</a></li>
+			<li><a href="">something</a></li>
+			<li><a href="">something</a></li>
+		</ul>
+	</nav>
+	<main>
+		<div style="width: 500px;height: 500px;background-color: silver;margin: 0 auto;"></div>
+		<img src="" alt="">
+	</main>
+	<footer><small>&copy; JS girls Osaka</small></footer>
+	<script src="jquery-1.11.1.min.js"></script>
+	<script>
+	(function($){
+		var openDrawer = function(){
+			var target = $('body'),
+				hideLayer = $('div').addClass('hideLayer');
+			target.addClass('showDrawer')
+			target.append(hideLayer);
+
+			console.log("show in")
+		}
+		var closeDrawer = function(){
+			var target = $('body'),
+				hideLayer = $('.hideLayer');
+			target.removeClass('showDrawer')
+			hideLayer.remove();
+			console.log("close in")
+		}
+		$('.showNav, .hideLayer').on('click', function(e){
+			console.log("clicked")
+			e.preventDefault();
+			if($('body').hasClass('showDrawer')){
+				closeDrawer();
+			} else {
+				openDrawer();
+			}
+		})
+	})(jQuery)
+	</script>
+</body>
+</html>
