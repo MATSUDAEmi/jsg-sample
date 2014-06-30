@@ -4,48 +4,52 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>sample code for drawer menu | JS Girls Osaka</title>
-	<link rel="stylesheet" href="reset.css">
+	<link rel="stylesheet" href="normalize.css">
 	<style>
-/* 暫定リセット */
-* {
-	margin: 0;
-	padding: 0;
-	text-indent: 0;
-}
 	body {
-		overflow: hidden;
+		overflow-x: hidden; 
+	}
+	body > div{
+		position: absolute;
+		width: 100%;
+		left: 0%;
+		transition: left 350ms ease-out 0s;
 	}
 	header {
 		width: 100%;
-		padding: 15px 0;
+		padding: 15px 0 40px;
 		background-color: gold;
-		transrate: right 350ms linear 0s;
 	}
 	h1 {
 		font-size: 2rem;
+		line-height: 2em;
+		margin: 0;
 		text-align: center;
 	}
-	a.showNav {
-		display: inline-block;
+	.showNav {
 		padding: 5px 10px;
 		position: absolute;
 		right: 10px;
-		top: 10px;
+		top: 50px;
 		background-color: silver;
 		box-shadow: 3px 2px 1px rgba(0,0,0,0.32);
 		border-radius: 5px;
 	}
-	a.showNav:hover {
+	.showNav:hover {
 		box-shadow: 3px 2px 1px rgba(0,0,0,0.2) inset;
 	}
+	nav {
+	}
 	nav ul {
-		position: fixed;
+		position: absolute;
 		left: 100%;
 		top: 0;
 		z-index: -1;
 		width: 70%;
+		padding: 0;
+		background-color: #fff;
 		display: table;
-		transrate: left 350ms linear 0s;
+		transition: left 350ms ease-out 0s;
 	}
 	nav li {
 		display: table-row;
@@ -55,16 +59,16 @@
 		padding: 10px 0;
 		color: rgba(0,0,0,1);
 		text-decoration: none;
+		transition: color 350ms ease 0s;
 	}
 	nav li a:hover {
-		color: rgba(60,60,0,1);;
-		transrate: color 350ms ease 0;
+		color: rgba(60,60,0,1);
 	}
 
 	main {
 		width: 100%;
+		padding: 50px 0;
 		text-align: center;
-		transrate: right 350ms linear 0s;
 	}
 	main img {
 		max-width: 100%;
@@ -74,15 +78,13 @@
 		background-color: black;
 		color: white;
 		text-align: center;
-		transrate: right 350ms linear 0s;
 	}
 
-	.showDrawer header, 
-	.showDrawer main, 
-	.showDrawer footer {
+	.showDrawer > div {
 		position: absolute;
-		right: 30%;
+		left: -70%;
 		z-index: 0;
+		transition: left 350ms ease-out 0s;
 	}
 	.hideLayer {
 		z-index: 1;
@@ -90,24 +92,30 @@
 		position: absolute;
 		top: 0;
 		left: 0;
+		right: 0;
 		bottom: 0;
-		width: 30%;
 	}
-	.showDrawer nav ul {
+	.showDrawer div nav ul{
+		position: absolute;
 		z-index: 2;
-		left: 30%;
+		left: 100%;
 	}
 	@media screen and ( min-width : 420px){
-
+		.showDrawer > div {
+			position: static;
+		}
 		nav {
+			overflow: hidden;
 			background-color: gold;
 			border-bottom: 5px sold green;
 			width: 100%;
+			display: block;
 		}
-		a.showNav {
+		.showNav {
 			display: none;
 		}
-		nav ul {
+		nav ul,
+		.showDrawer nav ul {
 			position: static;
 			width: 100%;
 			max-width: 60rem;
@@ -118,55 +126,67 @@
 			display: table-cell;
 			text-align: center;
 			padding: 0 5px;
+			width: 20%;
 		}
 	}
 	</style>
 </head>
 <body>
-
-	<header>
-		<h1>JS Girls</h1>
-	</header>
-	<nav>
-		<a href="" class="showNav">menu</a>
-		<ul>
-			<li><a href="">something</a></li>
-			<li><a href="">something</a></li>
-			<li><a href="">something</a></li>
-			<li><a href="">something</a></li>
-			<li><a href="">something</a></li>
-		</ul>
-	</nav>
-	<main>
-		<div style="width: 500px;height: 500px;background-color: silver;margin: 0 auto;"></div>
-		<img src="" alt="">
-	</main>
-	<footer><small>&copy; JS girls Osaka</small></footer>
+	<div>
+		<header>
+			<h1>JS Girls</h1>
+		</header>
+		<nav>
+			<p class="showNav">≡ メニュー</p>
+			<ul>
+				<li><a href="javascript:alert('test')">something</a></li>
+				<li><a href="">something</a></li>
+				<li><a href="">something</a></li>
+				<li><a href="">something</a></li>
+				<li><a href="">something</a></li>
+			</ul>
+		</nav>
+		<main>
+			<img src="osaka-201407.jpg" alt="">
+		</main>
+		<footer><small>&copy; JS girls Osaka</small></footer>
+	</div>
 	<script src="jquery-1.11.1.min.js"></script>
 	<script>
 	(function($){
 		var openDrawer = function(){
 			var target = $('body'),
-				hideLayer = $('div').addClass('hideLayer');
-			target.addClass('showDrawer')
+				hideLayer = $('<div />').addClass('hideLayer').css('display','none');
+			target.addClass('showDrawer');
 			target.append(hideLayer);
-
+			hideLayer.fadeIn(350);
+			hideLayer.on('click', onClickMenuBtn)
+			$('body').css('overflow-y','hidden')
 			console.log("show in")
 		}
 		var closeDrawer = function(){
 			var target = $('body'),
 				hideLayer = $('.hideLayer');
 			target.removeClass('showDrawer')
-			hideLayer.remove();
+			$('body').css('overflow-y','auto');
+			hideLayer.fadeOut(350,function(){
+				$(this).remove();
+			});
 			console.log("close in")
 		}
-		$('.showNav, .hideLayer').on('click', function(e){
+		var onClickMenuBtn = function(e){
 			console.log("clicked")
 			e.preventDefault();
 			if($('body').hasClass('showDrawer')){
 				closeDrawer();
 			} else {
 				openDrawer();
+			}
+		}
+		$('.showNav').on('click', onClickMenuBtn)
+		$(window).on('resize', function(e){
+			if( $(window).width() > 420 ){
+				closeDrawer();
 			}
 		})
 	})(jQuery)
