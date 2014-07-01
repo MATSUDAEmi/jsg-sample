@@ -29,6 +29,7 @@
 				openDrawer();
 			}
 		}
+		$('body').addClass('useJS');
 		$('.showNav').on('click', onClickMenuBtn)
 		$(window).on('resize', function(e){
 			if( $(window).width() > 420 ){

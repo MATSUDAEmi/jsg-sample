@@ -1,10 +1,10 @@
 
-	body {
+	body.useJS  {
 		overflow-x: hidden; 
 		background-color: beige;
 
 	}
-	body > div{
+	body.useJS > div{
 		position: absolute;
 		width: 100%;
 		left: 0%;
@@ -12,8 +12,11 @@
 	}
 	header {
 		width: 100%;
-		padding: 15px 0 40px;
+		padding: 15px 0 0;
 		background-color: gold;
+	}
+	.useJS header{
+		padding: 15px 0 40px;
 	}
 	h1 {
 		font-size: 2rem;
@@ -22,6 +25,10 @@
 		text-align: center;
 	}
 	.showNav {
+		display: none;
+	}
+	.useJS .showNav {
+		display: inline-block;
 		padding: 5px 10px;
 		position: absolute;
 		right: 10px;
@@ -30,27 +37,39 @@
 		box-shadow: 3px 2px 1px rgba(0,0,0,0.32);
 		border-radius: 5px;
 	}
-	.showNav:hover {
+	.useJS .showNav:hover {
 		box-shadow: 3px 2px 1px rgba(0,0,0,0.2) inset;
 	}
 	nav ul {
+		position: static;
+		margin: 0;
+		padding: 0;
+		display: table;
+	}
+	.useJS nav ul {
 		position: absolute;
 		left: 100%;
 		top: 0;
 		z-index: -1;
 		width: 70%;
-		padding: 0;
-		display: table;
 		transition: left 350ms ease-out 0s;
 	}
 	nav li {
+		display: table-cell;
+		width: 33%;
+	}
+	.useJS nav li {
 		display: table-row;
+		width: 100%;
 	}
 	nav li a {
 		display: block;
 		padding: 10px 12px;
-		color: rgba(0,0,0,1);
+		background-color: gold;
 		text-decoration: none;
+	}
+	.useJS nav li a {
+		color: rgba(0,0,0,1);
 		transition: color 350ms ease 0s;
 		background-color: beige;
 		border-bottom: 1px solid goldenrod;
@@ -76,7 +95,7 @@
 		text-align: center;
 	}
 
-	.showDrawer > div {
+	.showDrawer.useJS > div {
 		position: absolute;
 		left: -70%;
 		z-index: 0;
@@ -91,12 +110,13 @@
 		right: 0;
 		bottom: 0;
 	}
-	.showDrawer div nav ul{
+	.showDrawer.useJS div nav ul{
 		position: absolute;
 		/*z-index: 2;*/
 		left: 100%;
 	}
 	@media screen and ( min-width : 420px){
+		.useJS header,
 		header {
 			padding-bottom: 0;
 		}
@@ -106,9 +126,11 @@
 			width: 100%;
 			display: block;
 		}
+		.useJS .showNav,
 		.showNav {
 			display: none;
 		}
+		.useJS nav ul,
 		nav ul {
 			position: static;
 			width: 100%;
@@ -116,6 +138,7 @@
 			margin: 0 auto;
 			table-layout: fixed;
 		}
+		.useJS nav li,
 		nav li {
 			display: table-cell;
 			text-align: center;
@@ -124,6 +147,7 @@
 			background-color: gold;
 			border-bottom: 0px;
 		}
+		.useJS nav li a,
 		nav li a {
 			background-color: gold;
 			border-bottom: 0px;
